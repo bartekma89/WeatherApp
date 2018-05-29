@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getWeather } from '../actions/actions-weather';
 import Loader from '../presentation/LoaderComponent';
+import WeatherProps from '../presentation/WeatherPropsComponent.js'
 
 class WeatherDashboard extends Component {
 	componentDidMount() {
@@ -9,19 +10,10 @@ class WeatherDashboard extends Component {
 	}
 
 	render() {
-		const list = (
-			<ul>
-				<li>{this.props.properties.name}</li>
-				<li>{this.props.properties.base}</li>
-				<li>{this.props.properties.visibility}</li>
-				<li>{this.props.propertiesMore.temp}</li>
-			</ul>
-		);
-
 		return (
 			<div>
 				<Loader isLoading={this.props.isLoading}>
-					{!this.props.isError ? list : <h3>404 page not found</h3>}
+					{!this.props.isError ? <WeatherProps weather={this.props.weather}/> : <h3>404 page not found</h3>}
 				</Loader>
 			</div>
 		);
@@ -31,10 +23,8 @@ class WeatherDashboard extends Component {
 const mapsStateToProps = store => {
 	return {
 		...store,
-		properties: store.weatherStore.weather,
-		propertiesMore: store.weatherStore.weather.main,
-		isLoading: store.weatherStore.isLoading,
-		isError: store.weatherStore.isError,
+		isLoading: store.isLoading,
+		isError: store.isError,
 	};
 };
 

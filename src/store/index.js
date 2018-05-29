@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import rootReducers from '../reducers';
+import weatherReducer from '../reducers/weatherReducer';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
@@ -7,6 +7,6 @@ const logger = createLogger();
 
 const middleware = applyMiddleware(thunk, logger);
 
-const store = createStore(rootReducers, middleware);
+const store = createStore(weatherReducer, middleware);
 
 export default store;
